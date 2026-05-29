@@ -22,6 +22,7 @@ import { useAuth } from '../context/AuthContext';
 import { getProfile, updateProfile, uploadAvatar } from '../api/profile';
 import Spinner from '../components/Spinner';
 import GithubIntegration from '../components/GithubIntegration';
+import { getBackendUrl } from '../api/axios';
 
 /**
  * Profile Page
@@ -117,11 +118,7 @@ const Profile = () => {
   };
 
   // Avatar Image Helper
-  const getBackendUrl = () => {
-    return window.location.hostname === 'localhost' 
-      ? 'http://localhost:5000' 
-      : window.location.origin;
-  };
+
 
   const getAvatarUrl = (avatarPath) => {
     if (!avatarPath) return null;

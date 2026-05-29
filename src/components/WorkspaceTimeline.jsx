@@ -16,6 +16,7 @@ import {
 import toast from 'react-hot-toast';
 import { getWorkspaceActivities } from '../api/workspace';
 import Spinner from './Spinner';
+import { getBackendUrl } from '../api/axios';
 
 /**
  * WorkspaceTimeline Component
@@ -150,11 +151,7 @@ const WorkspaceTimeline = ({ workspaceId }) => {
     return name ? name.slice(0, 2).toUpperCase() : '??';
   };
 
-  const getBackendUrl = () => {
-    return window.location.hostname === 'localhost' 
-      ? 'http://localhost:5000' 
-      : window.location.origin;
-  };
+
 
   const getAvatarUrl = (avatarPath) => {
     if (!avatarPath) return null;

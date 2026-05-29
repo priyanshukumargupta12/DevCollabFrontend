@@ -14,6 +14,7 @@ import {
 import toast from 'react-hot-toast';
 import { useSocket } from '../context/SocketContext';
 import Spinner from './Spinner';
+import { getBackendUrl } from '../api/axios';
 
 const ICE_SERVERS = {
   iceServers: [
@@ -413,11 +414,7 @@ const WorkspaceMeeting = ({ workspaceId, currentUser, workspace }) => {
   };
 
   // Backend url helpers
-  const getBackendUrl = () => {
-    return window.location.hostname === 'localhost' 
-      ? 'http://localhost:5000' 
-      : window.location.origin;
-  };
+
 
   const getAvatarUrl = (avatarPath) => {
     if (!avatarPath) return null;

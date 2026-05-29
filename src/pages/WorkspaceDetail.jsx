@@ -33,6 +33,7 @@ import {
 } from '../api/workspace';
 import { useSocket } from '../context/SocketContext';
 import Spinner from '../components/Spinner';
+import { getBackendUrl } from '../api/axios';
 import KanbanBoard from '../components/KanbanBoard';
 import WorkspaceFiles from '../components/WorkspaceFiles';
 import WorkspaceMeeting from '../components/WorkspaceMeeting';
@@ -168,11 +169,7 @@ const WorkspaceDetail = ({ workspaceId, onBack, onWorkspaceDeleted, currentUser,
     return name ? name.slice(0, 2).toUpperCase() : '??';
   };
 
-  const getBackendUrl = () => {
-    return window.location.hostname === 'localhost' 
-      ? 'http://localhost:5000' 
-      : window.location.origin;
-  };
+
 
   const getAvatarUrl = (avatarPath) => {
     if (!avatarPath) return null;

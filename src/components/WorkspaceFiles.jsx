@@ -12,6 +12,7 @@ import {
 import toast from 'react-hot-toast';
 import { uploadFile, getFiles, deleteFile } from '../api/file';
 import Spinner from './Spinner';
+import { getBackendUrl } from '../api/axios';
 
 /**
  * WorkspaceFiles Component
@@ -125,11 +126,7 @@ const WorkspaceFiles = ({ workspaceId, isAdmin, currentUser, workspace }) => {
   };
 
   // Utility to resolve local/Cloudinary URL
-  const getBackendUrl = () => {
-    return window.location.hostname === 'localhost' 
-      ? 'http://localhost:5000' 
-      : window.location.origin;
-  };
+
 
   const getFileUrl = (filePath) => {
     if (!filePath) return '';

@@ -14,6 +14,7 @@ import {
 import toast from 'react-hot-toast';
 import { searchGlobal } from '../api/search';
 import Spinner from './Spinner';
+import { getBackendUrl } from '../api/axios';
 
 /**
  * SearchModal Component
@@ -138,11 +139,7 @@ const SearchModal = ({ isOpen, onClose, onSelectWorkspace }) => {
 
   if (!isOpen) return null;
 
-  const getBackendUrl = () => {
-    return window.location.hostname === 'localhost' 
-      ? 'http://localhost:5000' 
-      : window.location.origin;
-  };
+
 
   const getAvatarUrl = (avatarPath) => {
     if (!avatarPath) return null;

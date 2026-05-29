@@ -5,12 +5,21 @@ import axios from 'axios';
  * Base URL points to /api which is proxied to http://localhost:5000/api in dev.
  */
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: import.meta.env.VITE_API_URL || '/api',
   headers: {
     'Content-Type': 'application/json',
   },
   timeout: 10000, // 10 second request timeout
 });
+
+export const getBackendUrl = () => {
+  return import.meta.env.VITE_API_URL 
+    ? import.meta.env.VITE_API_URL.replace(/\/api$/, '') 
+    : (window.location.hostname === 'localhost' 
+        ? 'http://localhost:5000' 
+        : window.location.origin);
+};
+
 
 // ─── Request Interceptor ───────────────────────────────────────────────────
 // Attach JWT Bearer token from localStorage to every outgoing request.

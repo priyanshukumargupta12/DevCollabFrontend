@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { io } from 'socket.io-client';
 import { useAuth } from './AuthContext';
+import { getBackendUrl } from '../api/axios';
 
 const SocketContext = createContext(null);
 
@@ -24,9 +25,7 @@ export const SocketProvider = ({ children }) => {
     }
 
     // Determine the URL (Vite serves Frontend on 5173, Backend runs on 5000)
-    const socketUrl = window.location.hostname === 'localhost' 
-      ? 'http://localhost:5000' 
-      : window.location.origin;
+    const socketUrl = getBackendUrl();
 
     const newSocket = io(socketUrl, {
       withCredentials: true,

@@ -20,6 +20,7 @@ import {
 import { useSocket } from '../context/SocketContext';
 import TaskModal from './TaskModal';
 import Spinner from './Spinner';
+import { getBackendUrl } from '../api/axios';
 
 /**
  * KanbanBoard Component
@@ -157,11 +158,7 @@ const KanbanBoard = ({ workspaceId, members = [], currentUser }) => {
     return name ? name.slice(0, 2).toUpperCase() : '??';
   };
 
-  const getBackendUrl = () => {
-    return window.location.hostname === 'localhost' 
-      ? 'http://localhost:5000' 
-      : window.location.origin;
-  };
+
 
   const getAvatarUrl = (avatarPath) => {
     if (!avatarPath) return null;

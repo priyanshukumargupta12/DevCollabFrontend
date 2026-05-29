@@ -28,6 +28,7 @@ import {
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
 import { getWorkspaces } from '../api/workspace';
+import { getBackendUrl } from '../api/axios';
 import { getNotifications, markAllAsRead, markAsRead } from '../api/notification';
 import CreateWorkspaceModal from '../components/CreateWorkspaceModal';
 import WorkspaceDetail from './WorkspaceDetail';
@@ -74,11 +75,7 @@ const Dashboard = () => {
   const [notifications, setNotifications] = useState([]);
   const [isLoadingNotifications, setIsLoadingNotifications] = useState(true);
 
-  const getBackendUrl = () => {
-    return window.location.hostname === 'localhost' 
-      ? 'http://localhost:5000' 
-      : window.location.origin;
-  };
+
 
   const getAvatarUrl = (avatarPath) => {
     if (!avatarPath) return null;
