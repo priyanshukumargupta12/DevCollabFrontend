@@ -23,11 +23,12 @@ import {
   User,
   ChevronRight,
   Sparkles,
-  Video
+  Video,
+  Trash2
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
-import { getWorkspaces } from '../api/workspace';
+import { getWorkspaces, deleteWorkspace } from '../api/workspace';
 import { getBackendUrl } from '../api/axios';
 import { getNotifications, markAllAsRead, markAsRead } from '../api/notification';
 import CreateWorkspaceModal from '../components/CreateWorkspaceModal';
@@ -132,6 +133,21 @@ const Dashboard = () => {
     await logout();
     toast.success('Signed out successfully', { id: toastId });
     navigate('/login');
+  };
+
+  // ─── Delete Workspace handler ──────────────────────────────────────
+  const handleDeleteWorkspace = async (e, workspaceId, workspaceName) => {
+    e.stopPropagation(); // Stop navigation to workspace details
+    const confirmation = window.confirm(`Delete "${workspaceName}" forever?`);
+    if (!confirmation) return;
+    const toastId = toast.loading('Deleting workspace...');
+    try {
+      await deleteWorkspace(workspaceId);
+      toast.success('Workspace deleted successfully.', { id: toastId });
+      fetchWorkspacesList();
+    } catch (err) {
+      toast.error(err.response?.data?.message || 'Failed to delete workspace.', { id: toastId });
+    }
   };
 
   // Mark all activities as read
@@ -735,15 +751,47 @@ const Dashboard = () => {
                               }}>
                                 {workspace.name}
                               </h3>
-                              <span className="role-badge" style={
-                                role === 'Owner' 
-                                  ? { background: 'rgba(245, 158, 11, 0.1)', borderColor: 'rgba(245, 158, 11, 0.3)', color: 'var(--color-warning)', fontSize: '0.625rem', padding: '0.1rem 0.4rem' }
-                                  : role === 'Admin' 
-                                  ? { background: 'rgba(139, 92, 246, 0.1)', borderColor: 'rgba(139, 92, 246, 0.3)', color: 'var(--color-accent-light)', fontSize: '0.625rem', padding: '0.1rem 0.4rem' }
-                                  : { background: 'rgba(255, 255, 255, 0.03)', borderColor: 'var(--color-border)', color: 'var(--color-text-secondary)', fontSize: '0.625rem', padding: '0.1rem 0.4rem' }
-                              }>
-                                {role === 'Owner' ? 'Owner' : role}
-                              </span>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.375rem' }}>
+                                <span className="role-badge" style={
+                                  role === 'Owner' 
+                                    ? { background: 'rgba(245, 158, 11, 0.1)', borderColor: 'rgba(245, 158, 11, 0.3)', color: 'var(--color-warning)', fontSize: '0.625rem', padding: '0.1rem 0.4rem' }
+                                    : role === 'Admin' 
+                                    ? { background: 'rgba(139, 92, 246, 0.1)', borderColor: 'rgba(139, 92, 246, 0.3)', color: 'var(--color-accent-light)', fontSize: '0.625rem', padding: '0.1rem 0.4rem' }
+                                    : { background: 'rgba(255, 255, 255, 0.03)', borderColor: 'var(--color-border)', color: 'var(--color-text-secondary)', fontSize: '0.625rem', padding: '0.1rem 0.4rem' }
+                                }>
+                                  {role === 'Owner' ? 'Owner' : role}
+                                </span>
+                                {role === 'Owner' && (
+                                  <button
+                                    onClick={(e) => handleDeleteWorkspace(e, workspace._id, workspace.name)}
+                                    style={{
+                                      background: 'none',
+                                      border: 'none',
+                                      color: 'var(--color-text-muted)',
+                                      cursor: 'pointer',
+                                      padding: '2px',
+                                      borderRadius: '4px',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      transition: 'var(--transition-fast)'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                      e.stopPropagation();
+                                      e.currentTarget.style.color = 'var(--color-error)';
+                                      e.currentTarget.style.background = 'rgba(239, 68, 68, 0.1)';
+                                    }}
+                                    onMouseLeave={(e) => {
+                                      e.stopPropagation();
+                                      e.currentTarget.style.color = 'var(--color-text-muted)';
+                                      e.currentTarget.style.background = 'transparent';
+                                    }}
+                                    title="Delete Workspace"
+                                  >
+                                    <Trash2 size={13} />
+                                  </button>
+                                )}
+                              </div>
                             </div>
 
                             {/* Description snippet */}

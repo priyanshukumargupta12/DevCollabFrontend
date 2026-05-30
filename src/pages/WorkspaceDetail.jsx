@@ -548,7 +548,7 @@ const WorkspaceDetail = ({ workspaceId, onBack, onWorkspaceDeleted, currentUser,
             }}
           >
             <Users size={14} />
-            Members & Config
+            Settings & Members
           </button>
           {/* Code Editor tab — navigates to full-screen editor page */}
           <button
