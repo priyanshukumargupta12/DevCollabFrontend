@@ -4,8 +4,16 @@ import axios from 'axios';
  * Axios instance pre-configured for the backend API.
  * Base URL points to /api which is proxied to http://localhost:5000/api in dev.
  */
+const getBaseUrl = () => {
+  let url = import.meta.env.VITE_API_URL || '/api';
+  if (url.startsWith('http') && !url.endsWith('/api') && !url.endsWith('/api/')) {
+    url = url.replace(/\/$/, '') + '/api';
+  }
+  return url;
+};
+
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: getBaseUrl(),
   headers: {
     'Content-Type': 'application/json',
   },
@@ -13,8 +21,9 @@ const api = axios.create({
 });
 
 export const getBackendUrl = () => {
-  return import.meta.env.VITE_API_URL 
-    ? import.meta.env.VITE_API_URL.replace(/\/api$/, '') 
+  const url = getBaseUrl();
+  return url.startsWith('http') 
+    ? url.replace(/\/api$/, '') 
     : (window.location.hostname === 'localhost' 
         ? 'http://localhost:5000' 
         : window.location.origin);
