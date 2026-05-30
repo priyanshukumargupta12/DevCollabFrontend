@@ -1,25 +1,16 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "headers": [
-    {
-      "source": "/:path*",
-      "headers": [
-        {
-          "key": "Cross-Origin-Opener-Policy",
-          "value": "unsafe-none"
-        },
-        {
-          "key": "Cross-Origin-Embedder-Policy",
-          "value": "unsafe-none"
-        }
-      ]
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
       "dest": "https://devcollabbackend.onrender.com/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "headers": {
+        "Cross-Origin-Opener-Policy": "unsafe-none",
+        "Cross-Origin-Embedder-Policy": "unsafe-none"
+      },
+      "continue": true
     },
     {
       "handle": "filesystem"
