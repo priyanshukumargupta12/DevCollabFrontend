@@ -36,6 +36,7 @@ import WorkspaceDetail from './WorkspaceDetail';
 import Spinner from '../components/Spinner';
 import NotificationDropdown from '../components/NotificationDropdown';
 import SearchModal from '../components/SearchModal';
+import Footer from '../components/Footer';
 
 /**
  * Dashboard Page (Protected)
@@ -598,12 +599,13 @@ const Dashboard = () => {
               currentUser={user}
             />
           ) : (
-            /* Dashboard Home Panel (Grid Layout) */
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr',
-              gap: '1.5rem',
-            }} className="lg:grid-cols-3">
+            <>
+              {/* Dashboard Home Panel (Grid Layout) */}
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: '1fr',
+                gap: '1.5rem',
+              }} className="lg:grid-cols-3">
               
               {/* Left Side Column: Workspaces grid + Stats list */}
               <div className="lg:col-span-2" style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
@@ -1018,7 +1020,9 @@ const Dashboard = () => {
                 
               </div>
 
-            </div>
+              </div>
+              <Footer />
+            </>
           )}
           
         </div>

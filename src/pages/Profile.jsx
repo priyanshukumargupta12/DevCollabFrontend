@@ -23,6 +23,7 @@ import { getProfile, updateProfile, uploadAvatar } from '../api/profile';
 import Spinner from '../components/Spinner';
 import GithubIntegration from '../components/GithubIntegration';
 import { getBackendUrl } from '../api/axios';
+import Footer from '../components/Footer';
 
 /**
  * Profile Page
@@ -249,7 +250,8 @@ const Profile = () => {
   const userInitials = user.username.slice(0, 2).toUpperCase();
 
   return (
-    <div style={{ padding: '2rem 1.5rem', maxWidth: '1000px', margin: '0 auto', animation: 'slideUp 0.3s ease both' }}>
+    <>
+      <div style={{ padding: '2rem 1.5rem', maxWidth: '1000px', margin: '0 auto', animation: 'slideUp 0.3s ease both' }}>
       
       {/* Header Back Link */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
@@ -1084,7 +1086,9 @@ const Profile = () => {
           <GithubIntegration currentUser={user} onUserUpdate={setUser} />
         </div>
       )}
-    </div>
+      </div>
+      <Footer />
+    </>
   );
 };
 
