@@ -29,7 +29,10 @@ export const SocketProvider = ({ children }) => {
 
     const newSocket = io(socketUrl, {
       withCredentials: true,
-      transports: ['websocket', 'polling'],
+      transports: ['polling', 'websocket'],
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 2000,
     });
 
     newSocket.on('connect', () => {
