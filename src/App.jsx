@@ -11,6 +11,7 @@ import ResetPassword from './pages/auth/ResetPassword';
 import Dashboard from './pages/Dashboard';
 import Profile from './pages/Profile';
 import CodeEditorPage from './pages/CodeEditorPage';
+import DevArcade from './pages/DevArcade';
 
 /**
  * App — root component.
@@ -82,6 +83,15 @@ function App() {
               element={
                 <ProtectedRoute>
                   <CodeEditorPage />
+                </ProtectedRoute>
+              }
+            />
+
+            <Route
+              path="/arcade"
+              element={
+                <ProtectedRoute>
+                  <DevArcade />
                 </ProtectedRoute>
               }
             />

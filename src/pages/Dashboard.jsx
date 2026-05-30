@@ -24,7 +24,8 @@ import {
   ChevronRight,
   Sparkles,
   Video,
-  Trash2
+  Trash2,
+  Gamepad2
 } from 'lucide-react';
 import toast from 'react-hot-toast';
 import { useAuth } from '../context/AuthContext';
@@ -349,6 +350,30 @@ const Dashboard = () => {
           >
             <User size={15} />
             My Profile
+          </button>
+
+          <button
+            onClick={() => { navigate('/arcade'); setIsSidebarOpen(false); }}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.75rem',
+              width: '100%',
+              padding: '0.625rem 0.875rem',
+              borderRadius: 'var(--radius-md)',
+              border: 'none',
+              cursor: 'pointer',
+              fontSize: '0.85rem',
+              fontWeight: 500,
+              background: 'transparent',
+              color: 'var(--color-text-secondary)',
+              textAlign: 'left',
+              transition: 'var(--transition-fast)'
+            }}
+            className="hover:bg-[rgba(255,255,255,0.02)]"
+          >
+            <Gamepad2 size={15} />
+            Dev Arcade
           </button>
         </div>
 
